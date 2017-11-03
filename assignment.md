@@ -1,6 +1,6 @@
 ## The minimum seek time for an HDD is 9msec, and the maximum seek time is 90msec. The block size of this HDD is 4KB. How long on average does it take to read 100MB of data?
 
-|                     |                   |
+| 👇                  | #️⃣                 |
 | --------------------|-------------------|
 | Minimum seek time   | 9ms               |
 | Maximum seek time   | 90ms              |
@@ -18,7 +18,7 @@ Average time to read a single sector (4096 bytes):
 9 + (0.5 * 60 * 10^3 / 7200) + (4096 / (157 * 2^20)) * 1000 + 2.5 = 15.69ms
 
 Average time to read 100MB (102,400,000 bytes):
-9 + (0.5 * 60 * 10^3 / 7200) + (1024 * 10^5 / (157 * 2^20)) * 1000 + 5.5 = 637.68ms
+9 + (0.5 * 60 * 10^3 / 7200) + (1024 * 10^5 / (157 * 2^20)) * 1000 + 2.5 = 637.68ms
 ```
 
 Not factoring for multiple physical platters, multiple heads, or extra seek time due to disk fragmentation, the average read time for 100MB of data is 637.68ms on a 7200 RPM HDD with a 9ms seek time and a transfer rate of 157MB/s.
@@ -35,17 +35,15 @@ The IP header includes the source IP address, destination IP address, and other 
 
 The TCP header contains metadata that provides reliable, ordered, error-checked delivery of a stream of octets between applications.
 
-![TCP Header](https://raw.githubusercontent.com/lefrenk/Computer-Architecture-Two/master/tcp_header.svg)
+Similar to the IP header, the TCP header is 20 bytes (160-bits) unless options are present. The TCP header contains the __source__ and __destination ports__ (16-bits each), 32-bit __sequence number__, 32-bit __acknoledgement number__, 4-bit __data offset__, 6-bits __reserved__ for future use, 6 __control__ bits (URG, ACK, PSH, RST, SYN, FIN), 16-bit __window__, 16-bit __checksum__, 16-bit __urgent pointer__.
 
-Similar to the IP header, the TCP header is 20 bytes (160 bits) unless options are present. The TCP header contains the __source__ and __destination ports__ (16-bits each), 32-bit __sequence number__, 32-bit __acknoledgement number__, 4-bit __data offset__, 6-bits __reserved__ for future use, 6 __control__ bits (URG, ACK, PSH, RST, SYN, FIN), 16-bit __window__, 16-bit __checksum__, 16-bit __urgent pointer__.
-
-__Options__ may come after the header and are a multiple of 8 bits in length.
+__Options__ may come after the header and are a multiple of 8-bits in length.
 
 ***
 
 ## How does the network protocol guarantee that a TCP/IP packet is complete after transmission?
 
-Each TCP/IP packet contains a __checksum__ in the TCP header. The value of the checksum is computed over the entire set of data. When the TCP segment arrives at its destination, the receiving end performs the same checksum calculation. If there is a mismatch between its calculation and the value of the checksum field in the TCP header, this indicates an error of some sort occurred during transmission and the segment is normally discarded.
+Each TCP/IP packet contains a __checksum__ in the TCP header. The value of the checksum is computed over the entire set of data. When the TCP segment arrives at its destination, the receiving end performs the same checksum calculation. If there is a mismatch between its calculation and the value of the __checksum__ field in the TCP header, this indicates an error of some sort occurred during transmission and the segment is normally discarded.
 
 In addition, TCP/IP uses __IP fragmentation__, which is a process that breaks data into smaller fragments, so that packets may be formed that can pass through a link with a smaller maximum transmission unit (MTU) than the original data size.
 
